@@ -32,7 +32,7 @@ type CanadaAddress = {
 type Email = Email of string
 
 // Phone
-type CountryPrefix = Prefix of int
+type CountryPrefix = CountryPrefix of int
 type Phone = { CountryPrefix:CountryPrefix; LocalNumber:string }
 
 type Contact = {

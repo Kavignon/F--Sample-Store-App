@@ -32,4 +32,7 @@ with
     member x.getCartSubtotal = 
         match x.SelectedItems with 
         | None -> 0.00m<usd>
-        | Some storeProducts -> (0.00m<usd>, storeProducts) ||> Map.fold(fun accumulatedSubtotal product qty -> accumulatedSubtotal + (product.ProductPrice * decimal qty))
+        | Some storeProducts -> 
+            (0.00m<usd>, storeProducts) 
+            ||> Map.fold(fun accumulatedSubtotal product qty -> 
+                accumulatedSubtotal + (product.ProductPrice * decimal qty))

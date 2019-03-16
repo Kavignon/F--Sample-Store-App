@@ -5,6 +5,9 @@ open FSharp.Data
 
 type productDataFromDb = XmlProvider<"./CommerceDb.xml">
 
+// Generates a type based on the provided EMF file schema (XSD).
+type EmfFileSchema = XmlProvider<Schema = "./EMFFileSchema.xsd">
+
 [<Literal>]
 let BlackColor = "Black"
 
@@ -42,7 +45,6 @@ let myWeight = 5<kg>
 
 /// An hour (abbreviated hr.) is a unit of time conventionally reckoned as ​1⁄24 of a day and scientifically reckoned as 3,599–3,601 seconds, depending on conditions. 
 [<Measure>] type hr
-
 
 type ProductDimension = {
     Heigth: decimal<cm>; 

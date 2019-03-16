@@ -33,8 +33,10 @@ let getOrderTotalTaxes (selectedProducts: Map<StoreProduct, int>) =
 
         match product with 
         | Book b -> accTaxes + (baseTaxes * b.Details.Price * decimalCount)
-        | WirelessHeadphones wh -> accTaxes + (baseTaxes * wh.Details.Price * decimalCount) + (environmentalTaxes * wh.Details.Price * decimalCount)
-        | Television t -> accTaxes + (baseTaxes * t.ProductDetails.Price * decimalCount) + (environmentalTaxes * t.ProductDetails.Price * decimalCount)
+        | WirelessHeadphones wh -> 
+            accTaxes + (baseTaxes * wh.Details.Price * decimalCount) + (environmentalTaxes * wh.Details.Price * decimalCount)
+        | Television t ->
+            accTaxes + (baseTaxes * t.ProductDetails.Price * decimalCount) + (environmentalTaxes * t.ProductDetails.Price * decimalCount)
         | _ -> accTaxes
     )
 
