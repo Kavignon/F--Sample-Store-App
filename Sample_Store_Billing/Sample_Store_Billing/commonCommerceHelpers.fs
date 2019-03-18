@@ -79,6 +79,7 @@ type ProductColor =
     | Gray
     | Blue
     | Green 
+    | NotSupportedByStore
 
 type Brand = 
     | Toshiba
@@ -90,7 +91,19 @@ type Brand =
     | Bose  
     | Asus
     | Apple
-    | NonSupported
+    | NotSupportedByStore
+
+type SupportedLanguage = 
+    | English
+    | French
+    | NotSupportedByStore
+
+type GeneratedTypeFromStore = 
+    | Headphones                of value: ProductDb.Headphone
+    | ReadingMaterial           of value: ProductDb.Book
+    | Computer                  of value: ProductDb.Computer
+    //| Television    of value: ProductDb.Television
+    //| GameConsole   of value: ProductDb.GameConsole
 
 type CommonProductInformation  = { 
     Name:           string 
@@ -102,23 +115,3 @@ type CommonProductInformation  = {
     Color:          ProductColor
     Brand:          Brand
 }
-
-let (|Prefix|_|) (p:string) (s:string) =
-    if s.StartsWith(p) then
-        Some(s.Substring(p.Length))
-    else
-        None
-
-let (|Suffix|_|) (p:string) (s:string) =
-    if s.EndsWith(p) then
-        Some(String.Empty)
-    else
-        None
-
-let castToUsd value = value * 1.00m<usd>
-
-let castToKg (value: decimal) = (value |> float) * 1.00<kg>
-
-let castToStarReview (value: decimal) = (value |> float) * 1.00<star>
-
-let castToHour value = (value |> sbyte) * 1y<hr>
