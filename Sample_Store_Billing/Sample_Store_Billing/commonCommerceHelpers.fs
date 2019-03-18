@@ -1,12 +1,10 @@
-﻿module Common
+module Common
 
 open System
 open FSharp.Data
 
-type productDataFromDb = XmlProvider<"./CommerceDb.xml">
-
-// Generates a type based on the provided EMF file schema (XSD).
-type EmfFileSchema = XmlProvider<Schema = "./EMFFileSchema.xsd">
+type ProductDb = XmlProvider<"./CommerceDb.xml">
+let productsFromDatabase = ProductDb.GetSample()
 
 [<Literal>]
 let BlackColor = "Black"
