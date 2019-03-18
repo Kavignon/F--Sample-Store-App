@@ -5,6 +5,7 @@ open Common
 open ItemDomain
 
 let shippingFee = 15.00m<usd>
+let amountToPayForFreeShipping = 50.00m<usd>
 
 type OrderSummary = {
     ItemsOrdered: int
@@ -23,10 +24,12 @@ with
             | None -> billTotal
 
 let getCartItemTotal selectedProducts = 
-    (0, selectedProducts) ||> Map.fold(fun accTotal _ count -> accTotal + count)
+    (0, selectedProducts) 
+    ||> Map.fold(fun accTotal _ count -> accTotal + count)
 
 let getOrderTotalTaxes (selectedProducts: Map<StoreProduct, int>) = 
-    (0.00m<usd>, selectedProducts) ||> Map.fold(fun accTaxes product count -> 
+    (0.00m<usd>, selectedProducts) 
+    ||> Map.fold(fun accTaxes product count -> 
         let decimalCount = count |> decimal 
         let baseTaxes = 0.15m
         let environmentalTaxes = 0.05m
@@ -50,7 +53,13 @@ let processCartCheckout (cart: ShoppingCart) =
             let itemCount = getCartItemTotal items
             let totalTaxes = getOrderTotalTaxes items
             let subTotal = cart.getCartSubtotal
-            let orderSummary = { ItemsOrdered = itemCount; StartingSubtotal = subTotal; ShippingFee = Some shippingFee; Taxes = totalTaxes; IsShippingFree = if subTotal > 35.00m<usd> then true else false }
+            let orderSummary = {
+                ItemsOrdered = itemCount 
+                StartingSubtotal = subTotal
+                ShippingFee = Some shippingFee
+                Taxes = totalTaxes 
+                IsShippingFree = subTotal > amountToPayForFreeShipping 
+            }
             
             printfn "Order summary: %A" orderSummary
             printfn "Order Total %M" orderSummary.orderTotal
