@@ -1,4 +1,4 @@
-module Common
+﻿module Common
 
 open System
 open FSharp.Data

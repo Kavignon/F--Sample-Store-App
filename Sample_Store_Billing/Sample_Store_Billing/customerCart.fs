@@ -11,7 +11,6 @@ type PaymentMethod =
     | Debit of cardOwnerName: string * cardNumber: string * BankName: string * wasCloned: bool
 
     member x.isCardValid =
-        // Some complex valid going behind the scenes...
         match x with 
         | Visa(_, _, exprDate, _, wasCloned) -> DateTime.Now < exprDate && not wasCloned
         | Debit(_, _, _, wasCloned) -> not wasCloned
