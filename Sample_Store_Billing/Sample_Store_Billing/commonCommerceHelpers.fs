@@ -44,6 +44,28 @@ let myWeight = 5<kg>
 /// An hour (abbreviated hr.) is a unit of time conventionally reckoned as ​1⁄24 of a day and scientifically reckoned as 3,599–3,601 seconds, depending on conditions. 
 [<Measure>] type hr
 
+let (|Prefix|_|) (p:string) (s:string) =
+    if s.StartsWith(p) then
+        Some(s.Substring(p.Length))
+    else
+        None
+
+let (|Suffix|_|) (p:string) (s:string) =
+    if s.EndsWith(p) then
+        Some(String.Empty)
+    else
+        None
+
+let inline castToUsd value = value * 1.00m<usd>
+
+let inline castToKg (value: decimal) = (value |> float) * 1.00<kg>
+
+let inline castToStarReview (value: decimal) = (value |> float) * 1.00<star>
+
+let inline castToHour value = (value |> sbyte) * 1y<hr>
+
+let inline castToCm value = (value |> decimal) * 1.00m<cm>
+
 type ProductDimension = {
     Heigth: decimal<cm>; 
     Width: decimal<cm>; 
